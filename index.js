@@ -9,6 +9,7 @@ let displayingTxt = 0;
 let warningShown = false;
 let started = false;
 let talkTextStartFrom = 0;
+let continueAdviceGiven = false;
 
 const LOOP_INTERVAL = 3000;
 const TIME_TO_PLAY_SONG = 7000;
@@ -31,7 +32,7 @@ async function loadSounds(container){
 	sounds.forEach(sound=>{
 		let id = sound.toLowerCase();
 		id = id.replace(' ', '-');
-		soundsHtml += `<audio id="${id}" src="sounds/${sound}.mp3" muted></audio>`;
+		soundsHtml += `<audio id="${id}" src="sounds/${sound}.mp3"></audio>`;
 	})
 	container.innerHTML = soundsHtml;
 }
@@ -140,37 +141,76 @@ function showInput() {
 }
 
 function start() {
-	started = true;
+    started = true;
     const randomizedArray = setFirstSecondAndRandomize(data);
     elements.container.style.opacity = 1;
     document.querySelector('button').style.opacity = 0;
     const wordDiv = document.querySelector('#word');
     const languageDiv = document.querySelector('#language');
     let i = 0;
+    let touchCooldown = false; 
 
-    const loop = setInterval(() => {
-        if (i >= randomizedArray.length) {
-            clearInterval(loop);
-            wordDiv.textContent = '';
-            languageDiv.textContent = '';
-            finish();
-        } else {
-            const { icon, word, language, idioma } = randomizedArray[i];
-            wordDiv.textContent = word;
-            languageDiv.textContent = `${icon} ${selectedLanguage === 'pt' ? idioma : language} ${icon}`;
-			let keyWord = language.toLowerCase();
-			keyWord = keyWord.replace(' ', '-');
-            let audio = document.getElementById(keyWord);
-			if(desktopOrMobile === 'mobile') {
-				audio.muted = false;
-			}else{
-				audio.play();
-			}	
-            i++;
+    if (desktopOrMobile === 'desktop') {
+        
+        const loop = setInterval(() => {
+            if (i >= randomizedArray.length) {
+                clearInterval(loop);
+                wordDiv.textContent = '';
+                languageDiv.textContent = '';
+                finish();
+            } else {
+                const { icon, word, language, idioma } = randomizedArray[i];
+                wordDiv.textContent = word;
+                languageDiv.textContent = `${icon} ${selectedLanguage === 'pt' ? idioma : language} ${icon}`;
+                let keyWord = language.toLowerCase();
+                keyWord = keyWord.replace(' ', '-');
+                let audio = document.getElementById(keyWord);
+                audio.play();
+                i++;
+            }
+        }, LOOP_INTERVAL);
+    } else {
+        handleContinue(true);
+        function handleNextItem() {
+            if (touchCooldown) return; 
+            touchCooldown = true;
+            setTimeout(() => {
+				handleContinue(true);
+                touchCooldown = false;
+            }, 3000);
+			handleContinue(false);
+            if (i >= randomizedArray.length) {
+                wordDiv.textContent = '';
+                languageDiv.textContent = '';
+                finish();
+                window.removeEventListener('touchend', handleNextItem); 
+            } else {
+                const { icon, word, language, idioma } = randomizedArray[i];
+                wordDiv.textContent = word;
+                languageDiv.textContent = `${icon} ${selectedLanguage === 'pt' ? idioma : language} ${icon}`;
+                let keyWord = language.toLowerCase();
+                keyWord = keyWord.replace(' ', '-');
+                let audio = document.getElementById(keyWord);
+                audio.play();
+                i++;
+            }
         }
-    }, LOOP_INTERVAL);
+        window.addEventListener('touchend', handleNextItem);
+    }
 }
 
+function handleContinue(display) {
+	let continueTxt = document.getElementById('continueMobile');
+	let interval;
+	if(display){
+		let continueLabel = selectedLanguage === 'pt' ? 'Toque para continuar' : 'Tap to continue';
+		continueTxt.innerHTML = continueLabel;
+	}
+	else{
+		clearInterval(interval);
+		continueTxt.innerHTML = '';
+	}
+}
 function finish() {
     const restartBtn = document.querySelector('#restart');
 	let allH3 = document.querySelectorAll('h3');
