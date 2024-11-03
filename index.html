@@ -1,13 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HTML 5 Boilerplate</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <script src="index.js"></script>
-  </body>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>🖕30x🖕</title>
+		<link rel="stylesheet" href="style.css">
+		<script type="module" src="index.js"></script>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<div id="preloader">
+			<div id="languageSelection">
+				<button class="langOption" id="portugueseBtn">
+					🇧🇷Português🇵🇹
+				</button>
+				<button class="langOption" id="englishBtn">
+					🇬🇧English🇺🇸
+				</button>
+			</div>
+			<img id="volup" src="./media/volumeup.gif" width="60" alt="Volume UP...">
+		</div>
+		<audio id="bg-audio" loop src="./sounds/bckg.mp3" type="audio/mp3"></audio>
+		<audio id="talk" loop src="./sounds/talk.mp3" type="audio/mp3"></audio>
+		<audio id="reset-audio" loop src="./sounds/reset.mp3" type="audio/mp3"></audio>
+		<div class="container">
+			<button id="restart"></button>
+			<h3>&nbsp;</h3>
+			<h2 id="word"></h2>
+			<h3 id="language"></h3>
+			<h3>&nbsp;</h3>
+			<h3 class="temp" id="phrase"></h3>
+			<h4 class="temp"id="continue"></h4>
+			<h3 class="temp">&nbsp;</h3>
+			<h3 class="temp">&nbsp;</h3>
+		</div>
+	</body>
 </html>
