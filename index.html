@@ -2,10 +2,10 @@
 <html lang="en">
 	<head>
 		<link rel="icon" href="favico.png" type="image/png">
+		<title>🖕❤️🌸🙏😇😍</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>🖕❤️🌸🙏😇😍</title>
 		<link rel="stylesheet" href="style.css">
 		<script type="module" src="index.js"></script>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,19 +14,24 @@
 	</head>
 	<body>
 		<div id="preloader">
-			<div id="languageSelection">
+			<div id="spinner">
+				<img src="./media/loading.gif" width="100" alt="Loading...">
+			</div>
+			<div id="language-selection">
 				<button class="langOption" id="portugueseBtn">
 					🇧🇷Português🇵🇹
 				</button>
 				<button class="langOption" id="englishBtn">
 					🇬🇧English🇺🇸
 				</button>
+				<img id="volup" src="./media/volumeup.gif" width="60" alt="Volume UP...">
 			</div>
-			<img id="volup" src="./media/volumeup.gif" width="60" alt="Volume UP...">
 		</div>
-		<audio id="bg-audio" loop src="./sounds/bckg.mp3" type="audio/mp3"></audio>
-		<audio id="talk" loop src="./sounds/talk.mp3" type="audio/mp3"></audio>
-		<audio id="reset-audio" loop src="./sounds/reset.mp3" type="audio/mp3"></audio>
+		<div id="sounds">
+			<audio id="bg-audio" loop src="./sounds/bckg.mp3" preload="auto" type="audio/mp3"></audio>
+			<audio id="talk" loop src="./sounds/talk.mp3" preload="auto" type="audio/mp3"></audio>
+			<audio id="reset-audio" loop src="./sounds/reset.mp3" preload="auto" type="audio/mp3"></audio>
+		</div>
 		<div class="container">
 			<button id="restart"></button>
 			<h3>&nbsp;</h3>

@@ -94,8 +94,19 @@ button.startButton:hover{
 	z-index: 100;
 }
 
-#languageSelection {
+#spinner {
 	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh; /* Ensure it takes the full height of the viewport */
+}
+
+#language-selection {
+	display: none;
+	opacity: 1;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
 	flex-direction: column; /* Alinha os botões em uma coluna */
 	gap: 20px;
 }
